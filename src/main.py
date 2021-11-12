@@ -219,7 +219,7 @@ def add_student():
 #週に1回プッシュ通知
 @app.route("/push_toban", methods=['POST'])
 def push_toban():
-    group_id = "1111"
+    group_id = "C0b0f7f1a7f01a48973de9bf23ccd0aa9"
     try:
         line_bot_api.push_message(group_id, TextSendMessage(text=f"今週の週番は{find_student()}です。水曜日は掃除をしてください。"))
         return jsonify({
@@ -234,7 +234,7 @@ def push_toban():
 
 @app.route("/push_trash_info", methods=['POST'])
 def trash():
-    group_id = "1111"
+    group_id = "C0b0f7f1a7f01a48973de9bf23ccd0aa9"
     try:
         line_bot_api.push_message(group_id, TextSendMessage(text=f"ごみがたまってるんだけど、週番さんって掃除できないのかにゃ？^^"))
         return jsonify({

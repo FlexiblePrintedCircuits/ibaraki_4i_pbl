@@ -231,6 +231,22 @@ def push_toban():
             "status": "failed"
         })
 
+
+@app.route("/push_trash_info", methods=['POST'])
+def trash():
+    group_id = "1111"
+    try:
+        line_bot_api.push_message(group_id, TextSendMessage(text=f"ごみがたまってるんだけど、週番さんって掃除できないのかにゃ？^^"))
+        return jsonify({
+            "status":"success"
+        })
+    except Exception as e:
+        print(e)
+        return jsonify({
+            "status":"failed"
+        })
+
+
 @app.route("/callback", methods=['POST'])
 def callback():
     signature = request.headers['X-Line-Signature']

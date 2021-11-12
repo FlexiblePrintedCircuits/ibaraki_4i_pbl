@@ -216,6 +216,20 @@ def add_student():
             "status": "failed"
         })
 
+#週に1回プッシュ通知
+@app.route("/push_toban", methods=['POST'])
+def push_toban():
+    group_id = "1111"
+    try:
+        line_bot_api.push_message(group_id, TextSendMessage(text=f"今週の週番は{find_student()}です。水曜日は掃除をしてください。"))
+        return jsonify({
+            "status": "success"
+        })
+    except Exception as e:
+        print(e)
+        return jsonify({
+            "status": "failed"
+        })
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -239,7 +253,11 @@ def handle_message(event):
                 event.reply_token,
                 TextSendMessage(text=f"今週の週番は{find_student()}です。水曜日は掃除をしてください。")
             )
-
+        if (event.message.text == "グループ"):
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text=f"{event.source.group_id}")
+            )
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
